@@ -1,0 +1,4 @@
+rel1:
+Added ListOf type to ampy code
+Normalized argument instantiations, so e.g. instead of using ampy.Integer and ampy.String(), all arguments are passed as instances rather than class references, e.g. ampy.Integer() vs ampy.Integer
+Edited __init__ so it imports ampy and async automatically, so instead of "from ampy import ampy", you can just use "import ampy". The old way still works.
