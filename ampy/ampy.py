@@ -236,7 +236,7 @@ class Proxy:
         if ERROR in wireResponse:
             assert wireResponse[ERROR] == askKey
             raise AMPError(wireResponse[ERROR_CODE], wireResponse[ERROR_DESCRIPTION])
-        #print wireResponse[ANSWER], askKey
+
         assert wireResponse[ANSWER] == askKey
         del wireResponse[ANSWER]
 
