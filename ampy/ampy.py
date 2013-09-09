@@ -202,10 +202,13 @@ class Proxy:
 
     def _callRemote(self, command, answerExpected, **kw):
         askKey = str(self.counter)
-        self.counter += 1
+        if answerExpected:
+            self.counter += 1
 
         # compose packet
-        dataList = [COMMAND, command.commandName, ASK, askKey]
+        dataList = [COMMAND, command.commandName]
+        if answerExpected:
+            dataList.extend([ASK,askKey])
 
         command.serializeRequest(dataList, kw)
         insertPrefixes(dataList)
@@ -234,7 +237,7 @@ class Proxy:
         if ERROR in wireResponse:
             assert wireResponse[ERROR] == askKey
             raise AMPError(wireResponse[ERROR_CODE], wireResponse[ERROR_DESCRIPTION])
-
+        #print wireResponse[ANSWER], askKey
         assert wireResponse[ANSWER] == askKey
         del wireResponse[ANSWER]
 
